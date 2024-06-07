@@ -1,7 +1,7 @@
 import numpy as np
 from layers import Dense
 from models import Sequential
-from activations import Relu
+from activations import Softmax
 from losses import cross_entropy,cross_entropy_prime
 
 # 2 to 4 decoder , classification problem
@@ -11,9 +11,9 @@ Y = np.reshape([[1,0,0,0], [0,1,0,0], [0,0,1,0], [0,0,0,1]], (4, 4, 1))
 
 model = Sequential()
 model.add(Dense(input_size=2,output_size=10))
-model.add(Relu())
+model.add(Softmax())
 model.add(Dense(input_size=15,output_size=4))
-model.add(Relu())
+model.add(Softmax())
 
 model.compile(loss='cross_entropy')
 model.fit(X,Y, epochs = 10000, learning_rate= 0.01)
