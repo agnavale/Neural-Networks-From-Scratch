@@ -12,7 +12,7 @@ Y = np.reshape([[1,0,0,0], [0,1,0,0], [0,0,1,0], [0,0,0,1]], (4, 4, 1))
 model = Sequential()
 model.add(Dense(input_size=2,output_size=10))
 model.add(Softmax())
-model.add(Dense(input_size=15,output_size=4))
+model.add(Dense(input_size=10,output_size=4))
 model.add(Softmax())
 
 model.compile(loss='cross_entropy')
