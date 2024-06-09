@@ -16,16 +16,12 @@ class Momentum:
 
     def update_parms(self,layer):
         if hasattr(layer, "weights"):
-            if self.momentum:
-                if not hasattr(layer, "weights_momentum"):
-                    layer.weights_momentum = np.zeros(np.shape(layer.weights))
-                    layer.bias_momentum = np.zeros(np.shape(layer.bias))
+            if not hasattr(layer, "weights_momentum"):
+                layer.weights_momentum = np.zeros(np.shape(layer.weights))
+                layer.bias_momentum = np.zeros(np.shape(layer.bias))
 
-                weight_updates = self.learning_rate * layer.weights_gradient - self.momentum * layer.weights_momentum
-                bias_updates = self.learning_rate * layer.bias_gradient - self.momentum * layer.bias_momentum
-            else:
-                weight_updates = self.learning_ratening * layer.weights_gradient
-                bias_updates = self.learning_rate * layer.bais_gradient
-
+            weight_updates = self.learning_rate * layer.weights_gradient - self.momentum * layer.weights_momentum
+            bias_updates = self.learning_rate * layer.bias_gradient - self.momentum * layer.bias_momentum
+       
             layer.weights -= self.learning_rate * weight_updates
             layer.bias -= self.learning_rate * bias_updates
