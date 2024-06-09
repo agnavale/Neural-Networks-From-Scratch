@@ -44,6 +44,5 @@ class Sequential:
                 
             error /= len(x_train)
             if verbose:
-                if (e+1)%100 == 0:
-                    print(f"{e + 1}/{epochs}, error={error}")
+                print(f"{e + 1}/{epochs}, error={error}")
             
