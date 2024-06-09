@@ -1,1 +1,1 @@
-I'm trying to build a simple library for neural networks. So I will keep updating this files.
+I'm trying to build a simple library for neural networks that looks like tensorflow. As I learn more I will update this rep.
