@@ -1,2 +1,2 @@
-Batch processing involve directly feeding multiple sample of inputs <br>
+Batch processing involves directly feeding multiple samples of inputs <br>
 directly to nn without using loops.
