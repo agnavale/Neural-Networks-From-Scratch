@@ -14,7 +14,7 @@ class Momentum:
         self.beta = beta
 
     def update_parms(self,layer):
-        if not hasattr(layer, "weights_momentum"):
+        if not hasattr(layer, "weights_velocity"):
                 layer.weights_velocity = np.zeros(np.shape(layer.weights))
                 layer.bias_velocity = np.zeros(np.shape(layer.bias))
 
