@@ -23,5 +23,21 @@ class Momentum:
 
         layer.weights -= self.learning_rate * layer.weights_velocity
         layer.bias -= self.learning_rate *  layer.bias_velocity
-       
+
+class RMSprop:
+    def __init__(self, learning_rate = 0.1, beta = 0.9):
+        self.learning_rate = learning_rate
+        self.beta = beta
+
+    def update_parms(self,layer):
+        if not hasattr(layer, "weigths_square"):
+                layer.weights_square = np.zeros(np.shape(layer.weights))
+                layer.bias_square = np.zeros(np.shape(layer.bias))
+
+        # Sw: weights_square Sb: bias_square
+        layer.weights_square = np.clip(self.beta * layer.weights_square + (1-self.beta) * np.square(layer.weights_gradient), 1e-8, 1e+8)
+        layer.bias_square = np.clip(self.beta * layer.bias_square + (1-self.beta) * np.square(layer.bias_gradient), 1e-8, 1e+8)
+
+        layer.weights -= self.learning_rate * layer.weights_gradient / np.sqrt(layer.weights_square)
+        layer.bias -= self.learning_rate *  layer.bias_gradient / np.sqrt(layer.bias_square)
        
