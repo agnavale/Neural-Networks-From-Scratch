@@ -23,7 +23,7 @@ class Sequential:
         return output
 
     def fit(self,x_train, y_train, batch_size = 1, epochs = 1, verbose='true'):
-        #batch gradient decend
+        # mini-batch gradient decend
         x_batches = utils.create_batches(x_train,batch_size)
         y_batches = utils.create_batches(y_train,batch_size)
         
