@@ -40,4 +40,24 @@ class RMSprop:
 
         layer.weights -= self.learning_rate * layer.weights_gradient / np.sqrt(layer.weights_square)
         layer.bias -= self.learning_rate *  layer.bias_gradient / np.sqrt(layer.bias_square)
-       
+
+class Adam:
+    def __init__(self, learning_rate = 0.1, beta1 = 0.9, beta2 = 0.99):
+        self.learning_rate = learning_rate
+        self.beta1 = beta1
+        self.beta2 = beta2
+
+    def update_parms(self,layer):
+        if not hasattr(layer, "weights_velocity"):
+                layer.weights_velocity = np.zeros(np.shape(layer.weights))
+                layer.bias_velocity = np.zeros(np.shape(layer.bias))
+                layer.weights_square = np.zeros(np.shape(layer.weights))
+                layer.bias_square = np.zeros(np.shape(layer.bias))
+
+        layer.weights_velocity = self.beta1 * layer.weights_velocity + (1-self.beta1)*layer.weights_gradient
+        layer.bias_velocity = self.beta1 * layer.bias_velocity + (1-self.beta1)*layer.bias_gradient
+        layer.weights_square = np.clip(self.beta2 * layer.weights_square + (1-self.beta2) * np.square(layer.weights_gradient), 1e-8, 1e+8)
+        layer.bias_square = np.clip(self.beta2 * layer.bias_square + (1-self.beta2) * np.square(layer.bias_gradient), 1e-8, 1e+8)
+
+        layer.weights -= self.learning_rate * layer.weights_velocity / np.sqrt(layer.weights_square)
+        layer.bias -= self.learning_rate *  layer.bias_velocity / np.sqrt(layer.bias_square)
