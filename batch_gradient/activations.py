@@ -72,23 +72,14 @@ class Sigmoid(Activation):
 
 class Softmax(Layer):
     def forward(self, input):
-        # tmp = np.exp(input)- np.max(input, axis=1, keepdims=True)
         tmp = np.exp(input-np.max(input))
         self.output = tmp / np.sum(tmp, axis=1,keepdims=True)
-        
-        # print("act:",self.output)
         return self.output
     
     def backward(self, output_gradient):
         input_gradient = np.empty_like(output_gradient)
-        
         for i, (single_output, single_output_gradient) in enumerate(zip(self.output,output_gradient)):
-            
             single_output = single_output.reshape(-1,1)
-            
-            jacobMatr = np.diagflat(single_output) - \
-                        np.dot(single_output,single_output.T)
-            
+            jacobMatr = np.diagflat(single_output) - np.dot(single_output,single_output.T)
             input_gradient[i] = np.dot(jacobMatr,single_output_gradient)
-
         return input_gradient
