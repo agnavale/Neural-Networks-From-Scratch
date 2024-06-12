@@ -9,21 +9,19 @@ class SGD:
         layer.bias -= self.learning_rate * layer.bias_gradient
         
 class Momentum:
-    def __init__(self, learning_rate = 0.1, momentum = 0.9):
+    def __init__(self, learning_rate = 0.1, beta = 0.9):
         self.learning_rate = learning_rate
-        self.momentum = momentum
+        self.beta = beta
 
     def update_parms(self,layer):
         if not hasattr(layer, "weights_momentum"):
-            layer.weights_momentum = np.zeros(np.shape(layer.weights))
-            layer.bias_momentum = np.zeros(np.shape(layer.bias))
+                layer.weights_velocity = np.zeros(np.shape(layer.weights))
+                layer.bias_velocity = np.zeros(np.shape(layer.bias))
 
-        weight_updates = self.learning_rate * layer.weights_gradient - self.momentum * layer.weights_momentum
-        bias_updates = self.learning_rate * layer.bias_gradient - self.momentum * layer.bias_momentum
-        
-        layer.weights_momentum = weight_updates
-        layer.bias_momentum = bias_updates
+        layer.weights_velocity = self.beta * layer.weights_velocity + (1-self.beta)*layer.weights_gradient
+        layer.bias_velocity = self.beta * layer.bias_velocity + (1-self.beta)*layer.bias_gradient
 
-        layer.weights -= weight_updates
-        layer.bias -= bias_updates
+        layer.weights -= self.learning_rate * layer.weights_velocity
+        layer.bias -= self.learning_rate *  layer.bias_velocity
+       
        
