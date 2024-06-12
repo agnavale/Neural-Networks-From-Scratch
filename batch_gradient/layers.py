@@ -25,8 +25,6 @@ class Dense(Layer):
     def forward(self, input):
         self.input = input
         self.output = np.dot(self.input, self.weights) + self.bias
-
-        # print("layer:",self.input,"\n layer output:",self.output)
         act_output = self.activation.forward(self.output)
         return act_output
 
