@@ -25,7 +25,7 @@ class Momentum:
         layer.bias -= self.learning_rate *  layer.bias_velocity
 
 class RMSprop:
-    def __init__(self, learning_rate = 0.1, beta = 0.9):
+    def __init__(self, learning_rate = 0.1, beta = 0.999):
         self.learning_rate = learning_rate
         self.beta = beta
 
@@ -42,7 +42,7 @@ class RMSprop:
         layer.bias -= self.learning_rate *  layer.bias_gradient / np.sqrt(layer.bias_square)
 
 class Adam:
-    def __init__(self, learning_rate = 0.1, beta1 = 0.9, beta2 = 0.99):
+    def __init__(self, learning_rate = 0.1, beta1 = 0.9, beta2 = 0.999):
         self.learning_rate = learning_rate
         self.beta1 = beta1
         self.beta2 = beta2
