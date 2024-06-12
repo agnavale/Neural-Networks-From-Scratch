@@ -80,7 +80,6 @@ class Softmax(Layer):
         return self.output
     
     def backward(self, output_gradient):
-        # This version is faster than the one presented in the video
         input_gradient = np.empty_like(output_gradient)
         
         for i, (single_output, single_output_gradient) in enumerate(zip(self.output,output_gradient)):
